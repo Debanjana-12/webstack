@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xslt1.xsl"?>
+<details>
+<personalinfo>
+<name>Debanjana</name>
+<email>deb12@mca.christ.in</email>
+<phone>234567890</phone>
+<address>ranchi</address>
+<postcode>834001</postcode>
+<country>India</country>
+</personalinfo>
+<personalinfo>
+<name>Jagriti</name>
+<email>jagriti26@mca.christ.in</email>
+<phone>2345675678</phone>
+<address>Varanasi</address>
+<postcode>222203</postcode>
+<country>India</country>
+</personalinfo>
+<personalinfo>
+<name>Vasav</name>
+<email>vasav02@mca.christ.in</email>
+<phone>234567345</phone>
+<address>Punjab</address>
+<postcode>147301</postcode>
+<country>India</country>
+</personalinfo>
+</details>
