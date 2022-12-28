@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    
+    <style>
+        body {font: 17px Calibri;}
+        table 
+        {
+            width: auto;
+        }
+        table {
+    		    font-family: arial, sans-serif;
+    		    border-collapse: collapse;
+    		    width: 60%;
+    		}
+    		td, th {
+    		    border: 1px solid #dddddd;
+    		    text-align: left;
+    		    padding: 8px;
+    		}
+
+            .fixed-header, .fixed-footer{
+        width: 100%;
+        position: fixed;        
+        background: #333;
+        padding: 10px 0;
+        color: #fff;
+        text-align: center;
+    }
+    .fixed-header{
+        top: 0;
+    }
+    .fixed-footer{
+        bottom: 0;
+    }
+    
+    </style>
+</head>
+<body>
+    <div ng-app="myApp" 
+        ng-controller="myController">
+
+       <p>Showing data extracted from an external json file!</p>
+       <br> <br>
+       <div class="row">
+        <div class="col-md-2">
+          Search:
+        </div>
+        <div class="col-md-10">
+          <input type="text" class="search" data-ng-model="Search" size="30" placeholder="Search for your Products" />
+        </div>
+      </div>
+      <br/> 
+        <table >
+            <tr>
+                <th>PID</th>
+                    <th ngclick="orderByMe('Quantity')">Product_Name</th>
+                        <th>Product_Type</th>
+                        <th  ng-click="orderByMe('Quantity')">Quantity</th>
+                        <th  ng-click="orderByMe('Price')">Price(In ₹)</th>
+            </tr>
+
+            <tr ng-repeat="Product in list | filter:Search | orderBy:'Product_Name'">
+                <td>{{Product.PID}}</td>
+                    <td>{{Product.Product_Name}}</td>
+                        <td>{{Product.P_Type}}</td>
+                        <td>{{Product.Quantity | Quantity}}</td>
+                        <td>{{Product.Price}}</td>
+            </tr>
+        </table>
+        
+        
+      <hr/>
+    </div>
+    </div>
+    
+    <div class="fixed-footer">
+        <div class="container">Copyright &copy; 2019 Webelop</div>        
+    </div>
+</body>
+
+<!--The Controller-->
+<script>
+    var app = angular.module('myApp', [])
+             .filter("Quantity",function(){
+                return function (Quantity){
+                      if(Quantity == 1){
+                              return "Available";
+                      }
+                      else{        
+                              return "Unavailable";
+                      }
+                    
+                   }
+             });
+    app.controller('myController',
+        function ($scope, $http) {
+
+            var request = {
+                method: 'get',
+                url: 'Product.json',
+                dataType: 'json',
+                contentType: "application/json"
+            };
+
+            $scope.arrBirds = new Array;
+            $scope.arrBirds=[],
+            $scope.currentPage = 1,
+            $scope.numPerPage = 3,
+            $scope.maxSize = 4;
+
+            $scope.orderByMe = function(Product) {  
+        $scope.myOrderBy = Product;
+            }
+  
+  
+
+            $http(request)
+                .success(function (jsonData) {
+                    $scope.arrBirds = jsonData;
+                    $scope.list = $scope.arrBirds;
+                })
+                .error(function () {
+
+                });
+        });
+</script>
+</html>
